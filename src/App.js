@@ -14,9 +14,9 @@ function App() {
   const [newWage, setNewWage] = useState(0);
 
   const [employeeList, setEmployeeList] = useState([]);
-
+  
   const addEmployee = () => {
-    Axios.post('http://localhost:5000/create', {
+    Axios.post(`${process.env.REACT_APP_API_BASE_URL}/create`, {
       name: name,
       age: age,
       country: country,
@@ -37,13 +37,13 @@ function App() {
   };
 
   const getEmployees = () => {
-    Axios.get('http://localhost:5000/employees').then((response) => {
+    Axios.get(`${process.env.REACT_APP_API_BASE_URL}/employees`).then((response) => {
       setEmployeeList(response.data);
     });
   };
 
   const updateEmployeeWage = (name) => {
-    Axios.put('http://localhost:5000/update', { wage: newWage, name: name }).then(
+    Axios.put(`${process.env.REACT_APP_API_BASE_URL}/update`, { wage: newWage, name: name }).then(
       (response) => {
         setEmployeeList(
           employeeList.map((val) => {
@@ -64,7 +64,7 @@ function App() {
   };
 
   const deleteEmployee = (name) => {
-    Axios.delete(`http://localhost:5000/${name}`).then((response) => {
+    Axios.delete(`${process.env.REACT_APP_API_BASE_URL}/${name}`).then((response) => {
       setEmployeeList(
         employeeList.filter((val) => {
           return val.name != name;
